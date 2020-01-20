@@ -29,6 +29,9 @@ The last line will take a few minutes. At the end you should see a success messa
 Processed 449 homes.
 ``` 
 
+#### Management Command vs Data Migration
+Since this is a one off migration a Django Data Migration could've also been used. The management command however, is reusable in the future;
+
 ## Things for the future
 - Move project to a docker container
 - Add tests
