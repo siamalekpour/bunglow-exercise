@@ -51,14 +51,16 @@ class Home(models.Model):
     area_unit = models.CharField(
         max_length=4,
         choices=AreaUnit.CHOICES,
-        default=AreaUnit.SQUARE_FEET
+        default=AreaUnit.SQUARE_FEET,
+        blank=True,
+        null=True,
     )
     home_size = models.PositiveIntegerField(blank=True, null=True)
     property_size = models.PositiveIntegerField(blank=True, null=True)
-    year_built = models.PositiveSmallIntegerField(validators=[validate_year])
+    year_built = models.PositiveSmallIntegerField(validators=[validate_year], blank=True, null=True)
 
-    bathrooms = models.PositiveSmallIntegerField()
-    bedrooms = models.PositiveSmallIntegerField()
+    bathrooms = models.DecimalField(max_digits=3, decimal_places=1, blank=True, null=True)
+    bedrooms = models.PositiveSmallIntegerField(blank=True, null=True)
 
     state = models.ForeignKey(State, on_delete=models.SET_NULL, blank=True, null=True)
     city = models.CharField(max_length=100)
@@ -67,25 +69,25 @@ class Home(models.Model):
     zip_code = models.CharField(max_length=10)
 
     # Price values are large. Cents are not important
-    price = models.PositiveIntegerField()
+    price = models.PositiveIntegerField(blank=True, null=True)
     last_sold_price = models.PositiveIntegerField(blank=True, null=True)
     last_sold_date = models.DateField(auto_now=False, auto_now_add=False, blank=True, null=True)
 
     rent_price = models.PositiveIntegerField(blank=True, null=True)
     
-    zestimate_amount = models.PositiveIntegerField()
-    zestimate_last_updated = models.DateField()
+    zestimate_amount = models.PositiveIntegerField(blank=True, null=True)
+    zestimate_last_updated = models.DateField(blank=True, null=True)
 
-    rentzestimate_amount = models.PositiveIntegerField()
-    rentzestimate_last_updated = models.DateField()
+    rentzestimate_amount = models.PositiveIntegerField(blank=True, null=True)
+    rentzestimate_last_updated = models.DateField(blank=True, null=True)
 
-    tax_value = models.PositiveIntegerField()
-    tax_year = models.PositiveSmallIntegerField(validators=[validate_year])
+    tax_value = models.PositiveIntegerField(blank=True, null=True)
+    tax_year = models.PositiveSmallIntegerField(validators=[validate_year], blank=True, null=True)
 
     # TODO: Is the zillow id unique in our db?
     #       Add `unique=True` if they can be`
-    zillow_id = models.PositiveIntegerField()
-    link = models.URLField(max_length=500, help_text='Link to Zillow ad')
+    zillow_id = models.PositiveIntegerField(blank=True, null=True)
+    link = models.URLField(max_length=500,blank=True, null=True, help_text='Link to Zillow ad')
 
     class Meta:
         app_label = 'homes'
